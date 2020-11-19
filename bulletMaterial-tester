@@ -1,0 +1,84 @@
+var bullet,wall;
+var speed,weight,thickness;
+
+
+function setup() 
+{
+  createCanvas(1600,400);
+
+  speed = random(22,150);
+  weight = random(12,58);
+  thickness = random(20,90);
+
+  wall = createSprite(1500,200,thickness,height/2);
+  wall.shapeColor ="white" ;
+
+
+  bullet = createSprite(40,200,40,10);
+  bullet.shapeColor = "white";
+
+}
+
+function draw() {
+  background(0,0,0);  
+  
+  if(keyDown("space"))
+  {
+    bullet.velocityX = speed;
+  }
+
+  wall.depth = bullet.depth + 2;
+  bullet.depth = 3;
+
+  if(wall.x - bullet.x < (bullet.width + wall.width)/2)
+  {
+    bullet.velocityX = 0;
+    var deformation = 0.5*weight*speed*speed/22500;
+
+    if(deformation > 10)
+    {
+      wall.shapeColor = "red"
+    }
+    
+    if(deformation < 10)
+    {
+      wall.shapeColor = "green";
+    }
+  }
+  
+    if(keyDown("r"))
+    {
+      reset();
+    }
+
+  drawSprites();
+}
+
+function reset(){
+  bullet.x = 40;
+  bullet.shapeColor = "white";
+  
+  if(keyDown("space"))
+  {
+    bullet.velocityX = random(22,150);
+  }
+
+  wall.width  = random(20,90);
+  wall.shapeColor = "white";
+
+  if(wall.x - bullet.x < (bullet.width + wall.width)/2)
+  {
+    bullet.velocityX = 0;
+    var deformation = 0.5*weight*speed*speed/22500;
+
+    if(deformation > 10)
+    {
+      wall.shapeColor = "red"
+    }
+    
+    if(deformation < 10)
+    {
+      wall.shapeColor = "green";
+    }
+  }
+}
